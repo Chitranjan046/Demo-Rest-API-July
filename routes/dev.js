@@ -15,25 +15,27 @@ router.post("/create", async(req,res)=>{
     }
 })
 
-
-
-module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
 // get all the developer
+router.get("/all", async(req, res)=>{
+  try{
+    const allDevelopers = await developer.find();
+    res.status(200).json(allDevelopers);
+  }
+  catch(err){
+    res.status(400).json({message : "Error"})
+  }
+})
 
-
-
+// get only one developer
+router.get("/:id", async(req, res)=> {
+    try {
+      const developer = await Developer.findById(req.param.id);
+      res.status(200).json(developer);
+    }
+    catch(err) {
+      res.status(400).json("Error")
+    }
+})
 
 // post/create a developer
 
@@ -57,3 +59,7 @@ module.exports = router;
 
 
 
+
+
+
+module.exports = router;
